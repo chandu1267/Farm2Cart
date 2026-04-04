@@ -5,6 +5,7 @@ import { productUrl, imageUrl, cartUrl } from "../repo/api_path";
 import useAuthStore from "../store/useAuthStore";
 import { FaShoppingCart, FaHeart } from "react-icons/fa";
 import { toast } from "react-toastify";
+import imageStore from "../store/imageStore";
 
 const DetailComponent = () => {
   const { id } = useParams();
@@ -50,7 +51,7 @@ const DetailComponent = () => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       toast.success(res.data.message);
@@ -81,19 +82,18 @@ const DetailComponent = () => {
   return (
     <div className="min-h-screen bg-gray-100 py-10 px-4">
       <div className="max-w-6xl mx-auto bg-white rounded-2xl shadow-lg p-6 grid md:grid-cols-2 gap-8">
-
         {/* Image Section */}
         <div className="flex justify-center items-center">
-          <img
-            src={`${imageUrl}${product.image}`}
+          {/* <img
+            src={`${product.image}`}
             alt={product.name}
             className="w-full max-w-md object-contain rounded-xl hover:scale-105 transition duration-300"
-          />
+          /> */}
+          <img src={imageStore[product.image]} alt={product.name} />
         </div>
 
         {/* Details Section */}
         <div className="flex flex-col justify-between">
-
           <div>
             <h1 className="text-3xl font-bold text-gray-800 mb-4">
               {product.name}
@@ -103,14 +103,11 @@ const DetailComponent = () => {
               ₹{product.price}
             </p>
 
-            <p className="text-gray-600 leading-relaxed mb-6">
-              {product.desc}
-            </p>
+            <p className="text-gray-600 leading-relaxed mb-6">{product.desc}</p>
           </div>
 
           {/* Buttons */}
           <div className="flex gap-4 mt-4">
-            
             <button
               onClick={addToCartHandler}
               className="flex-1 flex items-center justify-center gap-2 bg-green-600 text-white py-3 rounded-xl font-semibold 
@@ -127,7 +124,6 @@ const DetailComponent = () => {
               <FaHeart />
               Save
             </button>
-
           </div>
         </div>
       </div>

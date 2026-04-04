@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import useAuthStore from "../store/useAuthStore";
 import { FaShoppingCart } from "react-icons/fa";
 import { toast } from "react-toastify";
+import imageStore from "../store/imageStore";
 
 const VegetableProducts = () => {
   const [vegetables, setVegetables] = useState([]);
@@ -91,8 +92,13 @@ const VegetableProducts = () => {
             {/* Image */}
             <Link to={`/single/${product._id}`}>
               <div className="h-40 flex items-center justify-center bg-gray-50">
-                <img
+                {/* <img
                   src={`${imageUrl}${product.image}`}
+                  alt={product.name}
+                  className="h-full object-contain p-2 hover:scale-105 transition duration-300"
+                /> */}
+                <img
+                  src={imageStore[product.image]}
                   alt={product.name}
                   className="h-full object-contain p-2 hover:scale-105 transition duration-300"
                 />

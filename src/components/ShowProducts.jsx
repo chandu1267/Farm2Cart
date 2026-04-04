@@ -6,6 +6,7 @@ import useAuthStore from "../store/useAuthStore";
 import useSearchStore from "../store/useSearchStore";
 import SearchFilter from "./SearchFilter";
 import { FaShoppingCart } from "react-icons/fa";
+import image1 from "../assets/react.svg";
 
 const ShowProducts = () => {
   const [showProducts, setShowProducts] = useState([]);
@@ -72,7 +73,7 @@ const ShowProducts = () => {
         { productId, quantity },
         {
           headers: { Authorization: `Bearer ${userToken}` },
-        }
+        },
       );
 
       incrementCart(quantity);
@@ -84,7 +85,6 @@ const ShowProducts = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 px-4 py-6">
-
       {/* Filters */}
       <div className="max-w-7xl mx-auto mb-6">
         <SearchFilter
@@ -99,41 +99,42 @@ const ShowProducts = () => {
 
       {/* Products */}
       <div className="max-w-7xl mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-
         {showProducts.map((product) => (
           <div
             key={product._id}
             className="bg-white rounded-xl shadow-md hover:shadow-xl transition duration-300 overflow-hidden"
           >
-
             {/* Image */}
             <Link to={`/single/${product._id}`}>
               <div className="h-40 flex items-center justify-center bg-gray-50">
-                <img
-                  src={`${imageUrl}${product.image}`}
+                {/* // src={`${imageUrl}${product.image}`} */}
+                {/* <img src={`https://farm2cart-backend.onrender.com${product.image}`} alt={product.name}/> */}
+                <img src={product.image} alt={image1} />
+                {/* <img
+                  src={
+                    product.image?.startsWith("http")
+                      ? product.image
+                      : `https://farm2cart-backend.onrender.com${product.image}`
+                  }
                   alt={product.name}
-                  className="h-full object-contain p-2 hover:scale-105 transition duration-300"
-                />
+                /> */}
+                alt={product.name}
+                className="h-full object-contain p-2 hover:scale-105 transition
+                duration-300"
               </div>
             </Link>
 
             {/* Content */}
             <div className="p-3 flex flex-col gap-2">
-
               <h3 className="text-sm font-semibold text-gray-800 line-clamp-2">
                 {product.name}
               </h3>
 
               <div className="flex items-center justify-between gap-2">
-
                 <select
                   className="text-xs border rounded-md px-2 py-1"
                   onChange={(e) =>
-                    handleUnitChange(
-                      product._id,
-                      e.target.value,
-                      product.price
-                    )
+                    handleUnitChange(product._id, e.target.value, product.price)
                   }
                 >
                   <option value="1kg">1kg</option>
@@ -154,11 +155,9 @@ const ShowProducts = () => {
                 <FaShoppingCart />
                 Add
               </button>
-
             </div>
           </div>
         ))}
-
       </div>
     </div>
   );
